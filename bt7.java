@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.time.Year; 
 
 class Sach {
     private String maSach;
@@ -7,12 +8,37 @@ class Sach {
     private int namXuatBan;
     private int soLuong;
 
+    public Sach(String maSach, String tieuDe, String tacGia, int namXuatBan, int soLuong) {
+        this.maSach = maSach;
+        this.tieuDe = tieuDe;
+        this.tacGia = tacGia;
+        setNamXuatBan(namXuatBan);
+        setSoLuong(soLuong);       
+    }
+
+    
     public void setMaSach(String maSach) { this.maSach = maSach; }
     public void setTieuDe(String tieuDe) { this.tieuDe = tieuDe; }
     public void setTacGia(String tacGia) { this.tacGia = tacGia; }
-    public void setNamXuatBan(int namXuatBan) { this.namXuatBan = namXuatBan; }
-    public void setSoLuong(int soLuong) { this.soLuong = soLuong; }
+    
+    public void setNamXuatBan(int namXuatBan) {
+        int currentYear = Year.now().getValue(); 
+        if (namXuatBan > 0 && namXuatBan <= currentYear) {
+            this.namXuatBan = namXuatBan;
+        } else {
+            System.out.println("Lỗi: Năm xuất bản không hợp lệ!");
+        }
+    }
 
+    public void setSoLuong(int soLuong) {
+        if (soLuong >= 0) {
+            this.soLuong = soLuong;
+        } else {
+            System.out.println("Lỗi: Số lượng không được âm!");
+        }
+    }
+
+  
     public String getMaSach() { return maSach; }
     public String getTieuDe() { return tieuDe; }
     public String getTacGia() { return tacGia; }
@@ -28,35 +54,15 @@ class Sach {
     }
 }
 
-public class bt7 {
+public class bt7 { 
     public static void main(String[] args) {
         ArrayList<Sach> danhSachThuVien = new ArrayList<>();
 
-        Sach sachToan = new Sach();
-        sachToan.setMaSach("001");
-        sachToan.setTieuDe("Gia tich");
-        sachToan.setTacGia("Nguyen Van A");
-        sachToan.setNamXuatBan(2023);
-        sachToan.setSoLuong(5);
-        danhSachThuVien.add(sachToan);
+        danhSachThuVien.add(new Sach("001", "Gia tich", "Nguyen Van A", 2023, 5));
+        danhSachThuVien.add(new Sach("002", "Vat ly dai cuong", "Tran Van B", 2022, 3));
+        danhSachThuVien.add(new Sach("003", "Hoa dai cuong", "Le Van C", 2024, 4));
 
-        Sach sachLy = new Sach();
-        sachLy.setMaSach("002");
-        sachLy.setTieuDe("Vat ly dai cuong");
-        sachLy.setTacGia("Tran Van B");
-        sachLy.setNamXuatBan(2022);
-        sachLy.setSoLuong(3);
-        danhSachThuVien.add(sachLy);
-
-        Sach sachHoa = new Sach();
-        sachHoa.setMaSach("003");
-        sachHoa.setTieuDe("Hoa dai cuong");
-        sachHoa.setTacGia("Le Van C");
-        sachHoa.setNamXuatBan(2024);
-        sachHoa.setSoLuong(4);
-        danhSachThuVien.add(sachHoa);
-
-        System.out.println("--- DANH SÁCH SÁCH TRONG THƯ VIỆN (OOP & ArrayList) ---");
+        System.out.println("--- DANH SÁCH SÁCH TRONG THƯ VIỆN (TUẦN 8 - TÍNH ĐÓNG GÓI) ---");
         for (int i = 0; i < danhSachThuVien.size(); i++) {
             System.out.print((i + 1) + ". ");
             danhSachThuVien.get(i).inthongtinsach();
